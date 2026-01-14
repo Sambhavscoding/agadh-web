@@ -75,7 +75,7 @@ export default function OTP() {
     setIsLoading(true);
     setTimeout(() => {
       if (otpValue === "123456") {
-        router.push("/role-select");
+        router.push("/RoleSelect");
       } else {
         setError("Invalid OTP. Please try again.");
         setIsLoading(false);
