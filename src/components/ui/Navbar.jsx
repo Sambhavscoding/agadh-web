@@ -88,8 +88,8 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* Desktop Navigation - Centered */}
-        <div className="hidden md:flex items-center gap-12 flex-1 justify-center">
+        {/* Desktop Navigation - Left side with Dashboard */}
+        <div className="hidden md:flex items-center gap-8 flex-1 justify-start pl-8">
           {navItems.map((item) => {
             const getIcon = (iconType) => {
               switch (iconType) {
@@ -122,7 +122,7 @@ const Navbar = () => {
         </div>
 
         {/* Right side: Generate QR Button + Profile */}
-        <div className="hidden md:flex items-center gap-4 shrink-0 pr-8">
+        <div className="hidden md:flex items-center gap-4 shrink-0">
           {/* Patient: Generate QR Button */}
           {role === "patient" && (
             <Link href="/patient/qr">
