@@ -25,16 +25,17 @@ export default function Login() {
     <div className="min-h-screen bg-[hsl(214,100%,97%)] px-4 py-8 flex flex-col">
       {/* Header */}
       <header className="mb-8">
-        <Link href="/">
-          <img
-            src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
-            alt="Agadh logo placeholder" 
-            width={120}
-            height={40}
-            className="h-10 w-auto"
-          />
-        </Link>
-      </header>
+  <Link href="/" className="flex items-center gap-0 no-underline">
+    <img
+      src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
+      alt="Agadh logo placeholder" 
+      width={120}
+      height={40}
+      className="h-10 w-auto"
+    />
+    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+  </Link>
+</header>
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center">
@@ -87,11 +88,11 @@ export default function Login() {
       <footer className="py-6 text-center">
         <p className="text-xs text-[hsl(215,16%,47%)]">
           By continuing, you agree to our{" "}
-          <Link href="/privacy" className="text-[hsl(221,83%,53%)] hover:underline">
+          <Link href="/Privacy" className="text-[hsl(221,83%,53%)] hover:underline">
             Privacy Policy
           </Link>{" "}
           and{" "}
-          <Link href="/terms" className="text-[hsl(221,83%,53%)] hover:underline">
+          <Link href="/Terms" className="text-[hsl(221,83%,53%)] hover:underline">
             Terms of Service
           </Link>
         </p>

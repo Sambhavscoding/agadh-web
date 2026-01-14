@@ -152,9 +152,9 @@ const UploadVitals = () => {
 
             <button
               onClick={() => addEntry("bp")}
-              className="flex items-center gap-2 text-[hsl(221,83%,53%)] hover:underline text-sm font-medium mt-4"
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-white border border-[hsl(214,32%,91%)] rounded-lg text-[hsl(221,83%,53%)] font-medium hover:bg-[hsl(214,100%,97%)] transition-colors"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-5 h-5" />
               Add another entry
             </button>
           </div>

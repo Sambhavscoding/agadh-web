@@ -7,19 +7,20 @@ import LandingCTA from "../components/Hero/LandingCTA";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[hsl(214,100%,97%)]">
+    <div className="min-h-screen bg-[hsl(214,100%,97%)] px-4 py-8 flex flex-col">
       {/* Header */}
-      <header className="px-4 py-6">
-        <div className="max-w-4xl mx-auto">
-          <img 
-            src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
-            alt="Agadh logo placeholder" 
-            width={120}
-            height={40}
-            className="h-10 w-auto"
-          />
-        </div>
-      </header>
+      <header className="mb-8">
+  <Link href="/" className="flex items-center gap-0 no-underline">
+    <img
+      src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
+      alt="Agadh logo placeholder" 
+      width={120}
+      height={40}
+      className="h-10 w-auto"
+    />
+    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+  </Link>
+</header>
 
       {/* Main Content */}
       <main className="px-4 py-12">

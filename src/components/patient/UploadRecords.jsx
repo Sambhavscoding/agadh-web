@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../ui/Navbar";
+import { Camera, FileText } from "lucide-react";
 
 const UploadRecords = () => {
   const [files, setFiles] = useState([]);
@@ -31,15 +32,17 @@ const UploadRecords = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <label className="bg-white rounded-xl shadow-sm border border-[hsl(214,32%,91%)] p-6 text-center cursor-pointer hover:bg-[hsl(214,100%,97%)] transition-colors">
-            <input type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => handleFileUpload(e.target.files)} />
-            <span className="text-sm font-medium text-[hsl(222,47%,11%)]">📷 Scan with Camera</span>
-          </label>
-          <label className="bg-white rounded-xl shadow-sm border border-[hsl(214,32%,91%)] p-6 text-center cursor-pointer hover:bg-[hsl(214,100%,97%)] transition-colors">
-            <input type="file" accept="image/*,.pdf" multiple className="hidden" onChange={(e) => handleFileUpload(e.target.files)} />
-            <span className="text-sm font-medium text-[hsl(222,47%,11%)]">📄 Upload Image/PDF</span>
-          </label>
-        </div>
+  <label className="bg-white rounded-xl shadow-sm border border-[hsl(214,32%,91%)] p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-[hsl(214,100%,97%)] transition-colors">
+    <input type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => handleFileUpload(e.target.files)} />
+    <Camera className="w-6 h-6 text-[hsl(221,83%,53%)] mb-2" />
+    <span className="text-sm font-medium text-[hsl(222,47%,11%)]">Scan with Camera</span>
+  </label>
+  <label className="bg-white rounded-xl shadow-sm border border-[hsl(214,32%,91%)] p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-[hsl(214,100%,97%)] transition-colors">
+    <input type="file" accept="image/*,.pdf" multiple className="hidden" onChange={(e) => handleFileUpload(e.target.files)} />
+    <FileText className="w-6 h-6 text-[hsl(221,83%,53%)] mb-2" />
+    <span className="text-sm font-medium text-[hsl(222,47%,11%)]">Upload Image/PDF</span>
+  </label>
+</div>
 
         {files.length > 0 && (
           <div className="space-y-3 mb-6">

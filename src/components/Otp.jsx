@@ -87,15 +87,18 @@ export default function OTP() {
     <div className="min-h-screen bg-[hsl(214,100%,97%)] px-4 py-8 flex flex-col">
       {/* Header */}
       <header className="mb-8 flex items-center justify-between">
-        <Link href="/">
-          <img
-            src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
-            alt="Agadh logo placeholder" 
-            width={120}
-            height={40}
-            className="h-10 w-auto"
-          />
-        </Link>
+        <header className="mb-8">
+  <Link href="/" className="flex items-center gap-0 no-underline">
+    <img
+      src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
+      alt="Agadh logo placeholder" 
+      width={120}
+      height={40}
+      className="h-10 w-auto"
+    />
+    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+  </Link>
+</header>
         <div className="relative">
           <button
             onClick={() => setShowLangMenu(!showLangMenu)}

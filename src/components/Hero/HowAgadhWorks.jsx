@@ -66,7 +66,7 @@ const HowAgadhWorks = () => {
 
               {/* Connector Line (hidden on last item and mobile) */}
               {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-[hsl(214,32%,91%)]" />
+                <div className="hidden lg:block absolute top-1/2 -right-6 w-6 h-0.5 bg-[hsl(214,32%,91%)]" />
               )}
             </div>
           ))}

@@ -4,17 +4,18 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-[hsl(214,100%,97%)] px-4 py-8">
       {/* Header */}
-      <header className="mb-8">
-        <Link href="/">
-          <img
-            src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
-            alt="Agadh logo placeholder" 
-            width={120}
-            height={40}
-            className="h-10 w-auto"
-          />
-        </Link>
-      </header>
+     <header className="mb-8">
+  <Link href="/" className="flex items-center gap-0 no-underline">
+    <img
+      src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
+      alt="Agadh logo placeholder" 
+      width={120}
+      height={40}
+      className="h-10 w-auto"
+    />
+    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+  </Link>
+</header>
 
       {/* Content */}
       <main className="max-w-2xl mx-auto">

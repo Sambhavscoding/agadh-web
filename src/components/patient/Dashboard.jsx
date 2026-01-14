@@ -35,17 +35,17 @@ export default function PatientDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-6 mb-8">
-          {quickActions.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link key={item.to} href={item.to} className="bg-white rounded-2xl shadow-sm border border-[hsl(214,32%,91%)] p-8 text-center hover:shadow-md transition-all duration-300">
-                <Icon className="w-10 h-10 text-[hsl(221,83%,53%)] mx-auto mb-4" />
-                <span className="text-sm font-semibold text-[hsl(222,47%,11%)]">{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
+       <div className="grid grid-cols-3 gap-6 mb-8">
+  {quickActions.map((item) => {
+    const Icon = item.icon;
+    return (
+      <Link key={item.to} href={item.to} className="bg-white rounded-2xl shadow-sm border border-[hsl(214,32%,91%)] p-8 flex flex-col items-center justify-center hover:shadow-md transition-all duration-300 no-underline">
+        <Icon className="w-10 h-10 text-[hsl(221,83%,53%)] mb-4" />
+        <span className="text-sm font-semibold text-[hsl(222,47%,11%)]">{item.label}</span>
+      </Link>
+    );
+  })}
+</div>
 
         {/* Vitals Snapshot */}
         <div className="bg-white rounded-2xl shadow-sm border border-[hsl(214,32%,91%)] p-8 mb-8">
@@ -81,7 +81,7 @@ export default function PatientDashboard() {
             {recentReports.map((report) => (
               <div key={report.id} className="flex items-center justify-between p-4 rounded-lg bg-[hsl(214,100%,97%)] hover:bg-[hsl(214,32%,91%)] transition-colors cursor-pointer group">
                 <div className="flex items-center gap-3 flex-1">
-                  <FileText className="w-5 h-5 text-[hsl(221,83%,53%)] flex-shrink-0" />
+                  <FileText className="w-5 h-5 text-[hsl(221,83%,53%)] shrink-0" />
                   <div>
                     <p className="font-medium text-[hsl(222,47%,11%)]">{report.name}</p>
                     <p className="text-xs text-[hsl(215,16%,47%)]">{report.date}</p>
