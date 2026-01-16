@@ -22,7 +22,7 @@ export default function RoleSelect() {
       <header className="mb-8">
   <Link href="/" className="flex items-center gap-0 no-underline">
     <img
-      src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png" 
+      src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png" 
       alt="Agadh logo placeholder" 
       width={120}
       height={40}

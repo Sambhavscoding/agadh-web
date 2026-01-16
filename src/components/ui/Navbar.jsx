@@ -74,7 +74,7 @@ const Navbar = () => {
       <div className=" px-4 pr-2 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href={role === "guest" ? "/landing" : role === "patient" ? "/patient/dashboard" : "/doctor/dashboard"} className="flex items-center gap-2 shrink-0 no-underline">
-          <img src="https://ik.imagekit.io/1bsukh3d7/agadh%20logo.png?updatedAt=1768358174702" alt="Agadh logo" className="h-8" />
+          <img src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png?updatedAt=1768358174702" alt="Agadh logo" className="h-8" />
           <span className="font-bold text-xl text-[hsl(222,47%,11%)]">Agadh</span>
         </Link>
 
