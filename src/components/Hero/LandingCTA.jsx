@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 const LandingCTA = () => {
   return (
-    <section className="px-4 py-16 bg-[hsl(214,100%,97%)]">
+    <section className="px-4 py-16 ">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-xl shadow-md border border-[hsl(214,32%,91%)] p-6 text-center max-w-xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-[hsl(222,47%,11%)] mb-4">

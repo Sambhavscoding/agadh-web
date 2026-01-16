@@ -4,23 +4,27 @@ import TrustBadge from "../components/Hero/TrustBadge";
 import WhoIsAgadhFor from "../components/Hero/WhoIsAgadhFor";
 import HowAgadhWorks from "../components/Hero/HowAgadhWorks";
 import LandingCTA from "../components/Hero/LandingCTA";
+import { GradientBackground } from "../components/ui/GradientBackground"; 
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[hsl(214,100%,97%)] px-4 py-8 flex flex-col">
+    <div className="min-h-screen px-4 py-8 flex flex-col relative">
+      {/* Add the gradient background */}
+      <GradientBackground />
+      
       {/* Header */}
       <header className="mb-8">
-  <Link href="/" className="flex items-center gap-0 no-underline">
-    <img
-      src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png" 
-      alt="Agadh logo placeholder" 
-      width={120}
-      height={40}
-      className="h-10 w-auto"
-    />
-    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
-  </Link>
-</header>
+        <Link href="/" className="flex items-center gap-0 no-underline">
+          <img
+            src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png" 
+            alt="Agadh logo placeholder" 
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+          />
+          <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+        </Link>
+      </header>
 
       {/* Main Content */}
       <main className="px-4 py-12">
