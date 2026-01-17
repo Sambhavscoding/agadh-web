@@ -93,7 +93,7 @@ export default function OTP() {
     // Role-based redirect
     if (role === "patient") {
       router.push("/patient/dashboard");
-    } else if (role === "doctor") {
+    } else if (role === "Doctor") {
       router.push("/doctor/dashboard");
     } else {
       router.push("/Register");

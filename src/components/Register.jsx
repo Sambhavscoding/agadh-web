@@ -122,11 +122,89 @@ const Register = () => {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    // Mock submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
 
-    router.push("/");
+    let apiUrl = "";
+    let payload = {};
+
+    if (formData.role === "patient") {
+      apiUrl = "http://localhost:5000/api/patient/register";
+
+      // Map vitals array to schema structure (pick latest entry for each type)
+      const bp = [...formData.vitals].reverse().find((v) => v.type === "bp");
+      const sugar = [...formData.vitals]
+        .reverse()
+        .find((v) => v.type === "sugar");
+      const weight = [...formData.vitals]
+        .reverse()
+        .find((v) => v.type === "weight");
+
+      payload = {
+        FirstName: formData.firstName,
+        LastName: formData.lastName,
+        Email: formData.email,
+        PhoneNumber: formData.phone,
+        DOB: formData.dob,
+        Address: formData.address,
+        user: "patient",
+        vitals: {
+          blood_pressure: bp
+            ? {
+                systolic: Number(bp.systolic) || undefined,
+                diastolic: Number(bp.diastolic) || undefined,
+                date: bp.date || undefined,
+              }
+            : undefined,
+          blood_sugar: sugar
+            ? {
+                level: Number(sugar.value) || undefined,
+                date: sugar.date || undefined,
+              }
+            : undefined,
+          weight: weight
+            ? {
+                value: Number(weight.value) || undefined,
+                date: weight.date || undefined,
+              }
+            : undefined,
+        },
+        uploadFiles: [],
+      };
+    } else if (formData.role === "doctor") {
+      apiUrl = "http://localhost:5000/api/doctor/register";
+      payload = {
+        FirstName: formData.firstName,
+        LastName: formData.lastName,
+        Email: formData.email,
+        PhoneNumber: formData.phone,
+        DOB: formData.dob,
+        Address: formData.address,
+        hospitalAffiliation: formData.clinic,
+        specialization: formData.specialization,
+        practiceType: formData.practiceType,
+      };
+    }
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        setErrors({ api: errorData.message || "Registration failed" });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Success
+      setIsSubmitting(false);
+      router.push("/");
+    } catch (err) {
+      setErrors({ api: "Network error. Please try again." });
+      setIsSubmitting(false);
+    }
   };
 
   const getVitalLabel = (type) => {
@@ -156,13 +234,15 @@ const Register = () => {
       <header className="mb-8">
         <Link href="/" className="flex items-center gap-0 no-underline">
           <img
-            src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png" 
-            alt="Agadh logo placeholder" 
+            src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png"
+            alt="Agadh logo placeholder"
             width={120}
             height={40}
             className="h-10 w-auto"
           />
-          <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+          <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">
+            Agadh
+          </span>
         </Link>
       </header>
 
@@ -233,68 +313,68 @@ const Register = () => {
                 </div>
               </div>
 
-             <div className="w-[584px]">
-              <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
-                Email *
-              </label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleChange("email", e.target.value)}
-                placeholder="john@example.com"
-                className={`w-full px-4 py-3 rounded-lg border ${errors.email ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-              )}
-            </div>
+              <div className="w-[584px]">
+                <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  placeholder="john@example.com"
+                  className={`w-full px-4 py-3 rounded-lg border ${errors.email ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
+              </div>
 
-            <div className="w-[584px]">
-              <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
-                Phone Number *
-              </label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => handleChange("phone", e.target.value)}
-                placeholder="9876543210"
-                className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
-              )}
-            </div>
+              <div className="w-[584px]">
+                <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => handleChange("phone", e.target.value)}
+                  placeholder="9876543210"
+                  className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                )}
+              </div>
 
-            <div className="w-[584px]">
-              <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
-                Date of Birth *
-              </label>
-              <input
-                type="date"
-                value={formData.dob}
-                onChange={(e) => handleChange("dob", e.target.value)}
-                className={`w-full px-4 py-3 rounded-lg border ${errors.dob ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
-              />
-              {errors.dob && (
-                <p className="text-red-500 text-xs mt-1">{errors.dob}</p>
-              )}
-            </div>
+              <div className="w-[584px]">
+                <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
+                  Date of Birth *
+                </label>
+                <input
+                  type="date"
+                  value={formData.dob}
+                  onChange={(e) => handleChange("dob", e.target.value)}
+                  className={`w-full px-4 py-3 rounded-lg border ${errors.dob ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
+                />
+                {errors.dob && (
+                  <p className="text-red-500 text-xs mt-1">{errors.dob}</p>
+                )}
+              </div>
 
-            <div className="w-[584px]">
-              <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
-                Address *
-              </label>
-              <textarea
-                value={formData.address}
-                onChange={(e) => handleChange("address", e.target.value)}
-                placeholder="Enter your full address"
-                rows={2}
-                className={`w-full px-4 py-3 rounded-lg border ${errors.address ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)] resize-none`}
-              />
-              {errors.address && (
-                <p className="text-red-500 text-xs mt-1">{errors.address}</p>
-              )}
-            </div>
+              <div className="w-[584px]">
+                <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
+                  Address *
+                </label>
+                <textarea
+                  value={formData.address}
+                  onChange={(e) => handleChange("address", e.target.value)}
+                  placeholder="Enter your full address"
+                  rows={2}
+                  className={`w-full px-4 py-3 rounded-lg border ${errors.address ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)] resize-none`}
+                />
+                {errors.address && (
+                  <p className="text-red-500 text-xs mt-1">{errors.address}</p>
+                )}
+              </div>
             </div>
           </div>
 
@@ -543,22 +623,22 @@ const Register = () => {
 
                 <div className="space-y-4">
                   <div className="w-[586px]">
-              <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
-                Clinic / Hospital Name *
-              </label>
-              <input
-                type="text"
-                value={formData.clinic}
-                onChange={(e) => handleChange("clinic", e.target.value)}
-                placeholder="City Health Clinic"
-                className={`w-full px-4 py-3 rounded-lg border ${errors.clinic ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
-              />
-              {errors.clinic && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.clinic}
-                </p>
-              )}
-            </div>
+                    <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
+                      Clinic / Hospital Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.clinic}
+                      onChange={(e) => handleChange("clinic", e.target.value)}
+                      placeholder="City Health Clinic"
+                      className={`w-full px-4 py-3 rounded-lg border ${errors.clinic ? "border-red-500" : "border-[hsl(214,32%,91%)]"} bg-[hsl(214,100%,97%)] text-[hsl(222,47%,11%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]`}
+                    />
+                    {errors.clinic && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.clinic}
+                      </p>
+                    )}
+                  </div>
 
                   <div>
                     <label className="text-sm font-medium text-[hsl(222,47%,11%)] mb-2 block">
@@ -697,7 +777,7 @@ const Register = () => {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-[hsl(221,83%,53%)] hover:underline font-medium"
+            className="text-[hsl(221,83%,53%] hover:underline font-medium"
           >
             Sign in
           </Link>
