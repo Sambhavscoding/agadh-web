@@ -38,9 +38,14 @@ export default function Landing() {
               consent-driven, time-bound access. You stay in control.
             </p>
 
+      <Link href="/Register">
+              <button className="w-full sm:w-auto px-8 py-3 mr-3 rounded-lg bg-[hsl(221,83%,53%)] text-white font-medium hover:bg-[hsl(221,83%,48%)] transition-colors">
+                Register
+              </button>
+            </Link>
             <Link href="/Login">
               <button className="w-full sm:w-auto px-8 py-3 rounded-lg bg-[hsl(221,83%,53%)] text-white font-medium hover:bg-[hsl(221,83%,48%)] transition-colors">
-                Login / Access Platform
+                Login
               </button>
             </Link>
           </div>

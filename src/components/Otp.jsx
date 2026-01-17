@@ -73,14 +73,51 @@ export default function OTP() {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      if (otpValue === "123456") {
-        router.push("/RoleSelect");
-      } else {
-        setError("Invalid OTP. Please try again.");
-        setIsLoading(false);
-      }
-    }, 1000);
+   setTimeout(async () => {
+  try {
+    if (otpValue !== "123456") {
+      setError("Invalid OTP. Please try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    // Call backend to get role by phone number
+    const res = await fetch("/api/auth/verify-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone: phoneNumber, // your state value
+        otp: otpValue,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      setError(data.message || "Verification failed");
+      setIsLoading(false);
+      return;
+    }
+
+    // Role-based redirect
+    if (data.role === "patient") {
+      router.push("/patient/dashboard");
+    } else if (data.role === "doctor") {
+      router.push("/doctor/dashboard");
+    } else {
+      // New user → role selection
+      router.push("/Register");
+    }
+
+  } catch (err) {
+    console.error(err);
+    setError("Something went wrong. Please try again.");
+    setIsLoading(false);
+  }
+}, 1000);
+
   };
 
   return (
