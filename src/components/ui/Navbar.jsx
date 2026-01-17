@@ -55,6 +55,7 @@ const Navbar = () => {
   const handleLogout = () => {
     setShowProfileMenu(false);
     setIsOpen(false);
+    localStorage.clear();
     router.push("/Login");
   };
 

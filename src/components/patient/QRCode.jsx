@@ -7,18 +7,59 @@ import Navbar from "../ui/Navbar";
 const durations = [
   { label: "15 min", value: 15 },
   { label: "30 min", value: 30 },
-  { label: "1 hour", value: 60 }
+  { label: "1 hour", value: 60 },
 ];
 
 export default function QRCodePage() {
   const [selectedDuration, setSelectedDuration] = useState(15);
   const [timeLeft, setTimeLeft] = useState(15 * 60);
   const [qrKey, setQrKey] = useState(0);
+  const [qrImage, setQrImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const router = useRouter();
   const intervalRef = useRef(null);
 
-  // EFFECT ONLY HANDLES THE INTERVAL
+  // Helper to get phone number
+  const getPhoneNumber = () => {
+    if (typeof window !== "undefined") {
+      return (
+        localStorage.getItem("phoneNumber") ||
+        sessionStorage.getItem("phoneNumber") ||
+        ""
+      );
+    }
+    return "";
+  };
+
+  // Fetch QR code from backend
+  const fetchQrCode = async () => {
+    setLoading(true);
+    setError("");
+    const phoneNumber = getPhoneNumber();
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/patient/qrcode/${phoneNumber}?duration=${selectedDuration}`,
+      );
+      if (!res.ok) throw new Error("Failed to fetch QR code");
+      const data = await res.json();
+      setQrImage(data.qrImage);
+    } catch (err) {
+      setError("Could not load QR code.");
+      setQrImage(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch QR code on mount, duration change, or regenerate
+  useEffect(() => {
+    fetchQrCode();
+    // eslint-disable-next-line
+  }, [selectedDuration, qrKey]);
+
+  // Timer effect
   useEffect(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -39,11 +80,11 @@ export default function QRCodePage() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [qrKey]); // ✅ no cascading renders
+  }, [qrKey, selectedDuration]);
 
   const handleDurationChange = (value) => {
     setSelectedDuration(value);
-    setTimeLeft(value * 60); // reset explicitly
+    setTimeLeft(value * 60);
   };
 
   const handleRegenerate = () => {
@@ -52,9 +93,9 @@ export default function QRCodePage() {
   };
 
   const formatTime = (seconds) =>
-    `${Math.floor(seconds / 60).toString().padStart(2, "0")}:${(seconds % 60)
+    `${Math.floor(seconds / 60)
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, "0")}:${(seconds % 60).toString().padStart(2, "0")}`;
 
   const isExpired = timeLeft === 0;
 
@@ -93,23 +134,22 @@ export default function QRCodePage() {
                 : "bg-white border-2 border-[hsl(221,83%,53%)]"
             }`}
           >
-            {isExpired ? (
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-[hsl(0,84%,60%)]">{error}</p>
+            ) : isExpired ? (
               <p className="text-[hsl(215,16%,47%)]">QR Expired</p>
+            ) : qrImage ? (
+              <img src={qrImage} alt="QR Code" width={200} height={200} />
             ) : (
-              <img
-                src="https://via.placeholder.com/200x200"
-                alt="QR Code placeholder"
-                width={200}
-                height={200}
-              />
+              <p>No QR code</p>
             )}
           </div>
 
           <p
             className={`text-2xl font-mono font-bold ${
-              isExpired
-                ? "text-[hsl(0,84%,60%)]"
-                : "text-[hsl(222,47%,11%)]"
+              isExpired ? "text-[hsl(0,84%,60%)]" : "text-[hsl(222,47%,11%)]"
             }`}
           >
             {formatTime(timeLeft)}

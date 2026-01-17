@@ -8,12 +8,12 @@ import { ChevronDown } from "lucide-react";
 export default function OTP() {
   // Initialize phone state with a function to get value from sessionStorage
   const [phone] = useState(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       return sessionStorage.getItem("phoneNumber") || "XXXXXXXXXX";
     }
     return "XXXXXXXXXX";
   });
-  
+
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +55,10 @@ export default function OTP() {
 
   const handlePaste = (e) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    const pastedData = e.clipboardData
+      .getData("text")
+      .replace(/\D/g, "")
+      .slice(0, 6);
     const newOtp = [...otp];
     pastedData.split("").forEach((char, index) => {
       if (index < 6) newOtp[index] = char;
@@ -66,58 +69,37 @@ export default function OTP() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const otpValue = otp.join("");
-    
+
     if (otpValue.length < 6) {
       setError("Please enter all 6 digits");
       return;
     }
 
     setIsLoading(true);
-   setTimeout(async () => {
-  try {
+
+    // Dummy OTP check
     if (otpValue !== "123456") {
       setError("Invalid OTP. Please try again.");
       setIsLoading(false);
       return;
     }
 
-    // Call backend to get role by phone number
-    const res = await fetch("/api/auth/verify-otp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone: phoneNumber, // your state value
-        otp: otpValue,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok || !data.success) {
-      setError(data.message || "Verification failed");
-      setIsLoading(false);
-      return;
+    // Get role from localStorage
+    let role = "new";
+    if (typeof window !== "undefined") {
+      role = localStorage.getItem("role") || "new";
     }
 
     // Role-based redirect
-    if (data.role === "patient") {
+    if (role === "patient") {
       router.push("/patient/dashboard");
-    } else if (data.role === "doctor") {
+    } else if (role === "doctor") {
       router.push("/doctor/dashboard");
     } else {
-      // New user → role selection
       router.push("/Register");
     }
 
-  } catch (err) {
-    console.error(err);
-    setError("Something went wrong. Please try again.");
     setIsLoading(false);
-  }
-}, 1000);
-
   };
 
   return (
@@ -125,23 +107,25 @@ export default function OTP() {
       {/* Header */}
       <header className="mb-8 flex items-center justify-between">
         <header className="mb-8">
-  <Link href="/" className="flex items-center gap-0 no-underline">
-    <img
-      src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png" 
-      alt="Agadh logo placeholder" 
-      width={120}
-      height={40}
-      className="h-10 w-auto"
-    />
-    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
-  </Link>
-</header>
+          <Link href="/" className="flex items-center gap-0 no-underline">
+            <img
+              src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png"
+              alt="Agadh logo placeholder"
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+            />
+            <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">
+              Agadh
+            </span>
+          </Link>
+        </header>
         <div className="relative">
           <button
             onClick={() => setShowLangMenu(!showLangMenu)}
             className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[hsl(214,32%,91%)] bg-white text-sm text-[hsl(222,47%,11%)]"
           >
-            {languages.find(l => l.code === language)?.label}
+            {languages.find((l) => l.code === language)?.label}
             <ChevronDown className="h-4 w-4" />
           </button>
           {showLangMenu && (
@@ -171,12 +155,16 @@ export default function OTP() {
               Verify your number
             </h1>
             <p className="text-[hsl(215,16%,47%)] text-center mb-8">
-              Enter the 6-digit code sent to +91 {phone.slice(-4).padStart(10, "X")}
+              Enter the 6-digit code sent to +91{" "}
+              {phone.slice(-4).padStart(10, "X")}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <div className="flex justify-center gap-3" onPaste={handlePaste}>
+                <div
+                  className="flex justify-center gap-3"
+                  onPaste={handlePaste}
+                >
                   {otp.map((digit, index) => (
                     <input
                       key={index}
@@ -187,14 +175,18 @@ export default function OTP() {
                       onChange={(e) => handleChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
                       className={`w-12 h-14 text-center text-xl font-semibold rounded-lg border ${
-                        error ? "border-[hsl(0,84%,60%)]" : "border-[hsl(214,32%,91%)]"
+                        error
+                          ? "border-[hsl(0,84%,60%)]"
+                          : "border-[hsl(214,32%,91%)]"
                       } bg-[hsl(214,100%,97%)] focus:outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)] transition-all`}
                       maxLength={1}
                     />
                   ))}
                 </div>
                 {error && (
-                  <p className="text-[hsl(0,84%,60%)] text-sm text-center mt-3">{error}</p>
+                  <p className="text-[hsl(0,84%,60%)] text-sm text-center mt-3">
+                    {error}
+                  </p>
                 )}
               </div>
 
@@ -208,7 +200,10 @@ export default function OTP() {
 
               <p className="text-center text-sm text-[hsl(215,16%,47%)]">
                 Didn&apos;t receive the code?{" "}
-                <button type="button" className="text-[hsl(221,83%,53%)] hover:underline rounded-lg">
+                <button
+                  type="button"
+                  className="text-[hsl(221,83%,53%)] hover:underline rounded-lg"
+                >
                   Resend OTP
                 </button>
               </p>
@@ -216,7 +211,9 @@ export default function OTP() {
 
             <div className="mt-6 p-3 rounded-lg bg-[hsl(214,100%,97%)] text-center">
               <p className="text-xs text-[hsl(215,16%,47%)]">
-                Demo: Use OTP <span className="font-mono font-semibold">123456</span> to continue
+                Demo: Use OTP{" "}
+                <span className="font-mono font-semibold">123456</span> to
+                continue
               </p>
             </div>
           </div>
