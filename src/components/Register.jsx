@@ -241,7 +241,7 @@ const Register = () => {
             className="h-10 w-auto"
           />
           <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">
-            Agadh
+            Agad
           </span>
         </Link>
       </header>
@@ -251,7 +251,7 @@ const Register = () => {
           Create Your Account
         </h1>
         <p className="text-[hsl(215,16%,47%)] text-center mb-8">
-          Join Agadh Healthcare Platform
+          Join Agad Healthcare Platform
         </p>
 
         <div className="space-y-6">
@@ -543,7 +543,7 @@ const Register = () => {
                   Your Data, Your Control
                 </h2>
                 <p className="text-[hsl(215,16%,47%)] text-center text-sm mb-6">
-                  Understand how Agadh protects your health information
+                  Understand how Agad protects your health information
                 </p>
 
                 <div className="space-y-4 mb-6">
@@ -595,7 +595,7 @@ const Register = () => {
                       >
                         data usage policy
                       </Link>
-                      . I consent to Agadh securely storing my health records
+                      . I consent to Agad securely storing my health records
                       for sharing with healthcare providers. *
                     </span>
                   </label>

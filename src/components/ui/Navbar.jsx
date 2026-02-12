@@ -76,7 +76,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href={role === "guest" ? "/landing" : role === "patient" ? "/patient/dashboard" : "/doctor/dashboard"} className="flex items-center gap-2 shrink-0 no-underline">
           <img src="https://ik.imagekit.io/1bsukh3d7/Agadh_logo_high_resol-removebg-preview.png?updatedAt=1768358174702" alt="Agadh logo" className="h-8" />
-          <span className="font-bold text-xl text-[hsl(222,47%,11%)]">Agadh</span>
+          <span className="font-bold text-xl text-[hsl(222,47%,11%)]">Agad</span>
         </Link>
 
         {/* Doctor Read-only Badge */}

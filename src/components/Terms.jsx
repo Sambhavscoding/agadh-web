@@ -13,7 +13,7 @@ export default function Terms() {
       height={40}
       className="h-10 w-auto"
     />
-    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agad</span>
   </Link>
 </header>
 
@@ -26,7 +26,7 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-[hsl(222,47%,11%)] mb-3">1. Acceptance of Terms</h2>
               <p className="text-[hsl(215,16%,47%)] leading-relaxed">
-                By accessing and using Agadh, you agree to be bound by these Terms of Service. If you do not 
+                By accessing and using Agad, you agree to be bound by these Terms of Service. If you do not 
                 agree to these terms, please do not use our services.
               </p>
             </section>
@@ -34,7 +34,7 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-[hsl(222,47%,11%)] mb-3">2. Service Description</h2>
               <p className="text-[hsl(215,16%,47%)] leading-relaxed">
-                Agadh is a health records management platform that enables patients to securely store and share 
+                Agad is a health records management platform that enables patients to securely store and share 
                 their medical records with healthcare providers. We facilitate the sharing process but do not 
                 provide medical advice or diagnoses.
               </p>
@@ -45,7 +45,7 @@ export default function Terms() {
               <div className="p-4 bg-[hsl(214,100%,97%)] rounded-lg border border-[hsl(214,32%,91%)]">
                 <p className="text-[hsl(222,47%,11%)] font-medium mb-2">Important Notice:</p>
                 <p className="text-[hsl(215,16%,47%)] leading-relaxed">
-                  Agadh is NOT a diagnostic service. The information stored and shared through our platform 
+                  Agad is NOT a diagnostic service. The information stored and shared through our platform 
                   should not be used as a substitute for professional medical advice, diagnosis, or treatment. 
                   Always seek the advice of your physician or other qualified health provider with any questions 
                   you may have regarding a medical condition.
@@ -74,7 +74,7 @@ export default function Terms() {
             <section>
               <h2 className="text-xl font-semibold text-[hsl(222,47%,11%)] mb-3">6. Limitation of Liability</h2>
               <p className="text-[hsl(215,16%,47%)] leading-relaxed">
-                Agadh shall not be liable for any indirect, incidental, special, consequential, or punitive 
+                Agad shall not be liable for any indirect, incidental, special, consequential, or punitive 
                 damages resulting from your use of or inability to use the service. We are not responsible 
                 for medical decisions made based on information shared through our platform.
               </p>

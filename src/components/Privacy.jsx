@@ -13,7 +13,7 @@ export default function Privacy() {
       height={40}
       className="h-10 w-auto"
     />
-    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agadh</span>
+    <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">Agad</span>
   </Link>
 </header>
 
@@ -26,7 +26,7 @@ export default function Privacy() {
             <section>
               <h2 className="text-xl font-semibold text-[hsl(222,47%,11%)] mb-3">1. Information We Collect</h2>
               <p className="text-[hsl(215,16%,47%)] leading-relaxed">
-                Agadh collects personal health information that you voluntarily provide, including medical records, 
+                Agad collects personal health information that you voluntarily provide, including medical records, 
                 vitals, prescriptions, and diagnostic reports. We also collect basic identification information 
                 such as your mobile number and name.
               </p>
@@ -77,7 +77,7 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold text-[hsl(222,47%,11%)] mb-3">7. Contact Us</h2>
               <p className="text-[hsl(215,16%,47%)] leading-relaxed">
                 If you have questions about this privacy policy or your health data, please contact us at 
-                privacy@agadh.health
+                privacy@agad.health
               </p>
             </section>
           </div>

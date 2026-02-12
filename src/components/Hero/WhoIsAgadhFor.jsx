@@ -3,7 +3,7 @@ const WhoIsAgadhFor = () => {
     <section className="px-4 py-16 ">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-[hsl(222,47%,11%)] text-center mb-10">
-          Who is Agadh for?
+          Who is Agad for?
         </h2>
 
         <div className="grid gap-6 md:grid-cols-2">

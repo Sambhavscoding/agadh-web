@@ -22,7 +22,7 @@ const HowAgadhWorks = () => {
     <section className="px-4 py-16">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-[hsl(222,47%,11%)] text-center mb-4">
-          How Agadh Works
+          How Agad Works
         </h2>
         <p className="text-[hsl(215,16%,47%)] text-center mb-12 max-w-lg mx-auto">
           A simple, secure process to share your health history

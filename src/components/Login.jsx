@@ -55,7 +55,7 @@ export default function Login() {
             className="h-10 w-auto"
           />
           <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">
-            Agadh
+            Agad
           </span>
         </Link>
       </header>
@@ -65,7 +65,7 @@ export default function Login() {
         <div className="w-full max-w-md">
           <div className="bg-white rounded-xl shadow-md border border-[hsl(214,32%,91%)] p-6">
             <h1 className="text-2xl font-bold text-[hsl(222,47%,11%)] text-center mb-2">
-              Welcome to Agadh
+              Welcome to Agad
             </h1>
             <p className="text-[hsl(215,16%,47%)] text-center mb-8">
               Enter your mobile number to continue

@@ -116,7 +116,7 @@ export default function OTP() {
               className="h-10 w-auto"
             />
             <span className="font-bold text-2xl text-[hsl(222,47%,11%)]">
-              Agadh
+              Agad
             </span>
           </Link>
         </header>
